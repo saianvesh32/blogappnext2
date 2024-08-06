@@ -1,5 +1,6 @@
 import styles from "./postUser.module.css"
-import { getUser } from "@/lib/data";
+import Image from "next/image";
+import { getUser } from "../../lib/data";
 // const getData=  async(userid)=>{
 //     const res= await fetch(`https://jsonplaceholder.typicode.com/users/${userid}`,{cache:"no-store"});
 //     if(!res.ok){
@@ -17,8 +18,12 @@ const postUser = async({userId}) => {
     console.log(user)
   return (
     <div className={styles.container}>
-         <span className={styles.title}>Author</span>
-         <span className={styles.username}>{user.name}</span>
+        <Image className={styles.avatar} src={user.img?user.img:"/noavatar.png"}  alt="" width={50} height={50}/>
+        <div className={styles.texts}>
+        <span className={styles.title}>Author</span>
+        <span className={styles.username}>{user.username}</span>
+        </div>
+
     </div>
   )
 }

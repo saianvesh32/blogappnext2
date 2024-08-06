@@ -1,34 +1,48 @@
 import styles from "./singlePost.module.css";
 import Image from "next/image";
-import PostUser from "@/components/postUser/postUser";
+import PostUser from "../../../components/postUser/postUser";
 import { Suspense } from "react";
-import { getPost } from "@/lib/data";
-// const getData=  async(slug)=>{
-//   const res= await fetch(`https://jsonplaceholder.typicode.com/posts/${slug}`)
-//   if(!res.ok){
-//      throw new Error("Something went wrong")
-//   }
-//   return res.json()
-//  }
+import { getPost } from "../../../lib/data";
+const getData=  async(slug)=>{
+  const res= await fetch(`http://localhost:3000/api/blog/${slug}`,{cache:"no-store"});
+  if(!res.ok){
+     throw new Error("Something went wrong");
+  }
+  console.log("hmm");
+  return res.json();
+ }
+export const generateMetadata = async ({ params }) => {
+  "use server"
+  const { slug } = params;
 
+  const post = await getPost(slug);
+console.log(post)
+  return {
+    title: post.title,
+    description: post.desc,
+  };
+};
 
 const SinglePostPage = async({params}) => {
+  "use server"
   console.log(params);
   const {slug}= params;
 //fetch data with an api
-  // const post = await getData(slug);
+  const post = await getData(slug);
 
   //fetch data without an api
-  const post = await getPost(slug);
+  // const post = await getPost(slug);
+  console.log(post)
   return (
     <div className={styles.container}>
-     <div className={styles.imgContainer}>
-      <Image className={styles.img} src="https://images.pexels.com/photos/18004648/pexels-photo-18004648/free-photo-of-close-up-of-a-camera.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load" alt="" fill/>
+    { post.img && (
+      <div className={styles.imgContainer}>
+      <Image className={styles.img} src={post.img} alt="" fill/>
      </div>
+    )}
      <div className={styles.textContainer}>
-          <h1 className={styles.title}>{post?.title}</h1>
+          <h1 className={styles.title}>{post.title}</h1>
           <div className={styles.details}>
-                <Image className={styles.avatar} src="https://images.pexels.com/photos/18004648/pexels-photo-18004648/free-photo-of-close-up-of-a-camera.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load"  alt="" width={50} height={50}/>
                 { post &&  (<Suspense fallback={<div>Loading...</div>}>
                 <PostUser userId={post.userId}/>
                 </Suspense>)}
@@ -38,7 +52,7 @@ const SinglePostPage = async({params}) => {
                 </div>
           </div>
           <div className={styles.content}>
-            {post.body}
+            {post.desc}
           </div>
      </div>
     </div>
