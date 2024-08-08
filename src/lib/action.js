@@ -141,7 +141,7 @@ export const login = async(prevState,formData)=>{
     console.log(err);
     if (err.message.includes("Wrong credentials!")) {
       return { error: "Invalid username or password" };
-    }
+    } 
    throw err;
   }
 }
