@@ -127,7 +127,5 @@ callbacks:{
         return true;
       },
       ...authConfig.callbacks,
-
-
 },
 });

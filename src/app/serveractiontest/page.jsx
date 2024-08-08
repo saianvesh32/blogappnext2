@@ -1,5 +1,5 @@
-import { addPost } from "@/lib/action"
-import { deletePost } from "@/lib/action"
+import { addPost } from "../serveractiontest/lib/action"
+import { deletePost } from "../serveractiontest/lib/action"
 const ServerActionTestPage = () => {
     // const actionincomponent=async()=>{
     //     "use server"
