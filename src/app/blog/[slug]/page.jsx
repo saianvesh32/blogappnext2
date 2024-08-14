@@ -4,7 +4,7 @@ import PostUser from "../../../components/postUser/postUser";
 import { Suspense } from "react";
 import { getPost } from "../../../lib/data";
 const getData=  async(slug)=>{
-  const res= await fetch(`http://localhost:3000/api/blog/${slug}`,{cache:"no-store"});
+  const res= await fetch(`https://blogapp321.vercel.app/api/blog/${slug}`,{cache:"no-store"});
   if(!res.ok){
      throw new Error("Something went wrong");
   }

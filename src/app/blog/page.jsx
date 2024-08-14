@@ -4,8 +4,7 @@ import PostCard from "../../components/postCard/postCard"
 // import { getPosts } from "@/lib/data";
 const getData = async () => {
   try {
-      const res = await fetch("http://localhost:3000/api/blog",{next:{revalidate:10}});
-      
+      const res = await fetch("https://blogapp321.vercel.app/api/blog",{next:{revalidate:10}});
       if (!res.ok) {
           throw new Error("Failed to fetch data");
       }
